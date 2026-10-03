@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Question From My Heart 💖</title>
+  <meta name="description" content="A romantic interactive proposal website asking the most important question in the world.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Interactive Canvas for Floating Hearts & Sparkles -->
+  <canvas id="ambient-canvas"></canvas>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Top Utilities -->
+  <header class="top-nav">
+    <div class="audio-toggle" id="audio-toggle" title="Toggle romantic background music" role="button" tabindex="0">
+      <span class="music-icon" id="music-icon">🎵</span>
+      <span class="music-label" id="music-label">Romantic Melodies</span>
+    </div>
+  </header>
+
+  <!-- Main Proposal Container -->
+  <main class="proposal-container" id="proposal-container">
+    <div class="glass-card" id="main-card">
+      
+      <!-- Asking View -->
+      <section class="state-view asking-view active" id="asking-view" aria-live="polite">
+        <!-- Badge -->
+        <div class="badge-pill">
+          <span class="heart-pulse">❤️</span> A Letter For You
+        </div>
+
+        <!-- Illustration -->
+        <div class="image-wrapper">
+          <div class="halo-glow"></div>
+          <img src="assets/asking.jpg" alt="Cute teddy bear holding a red rose" id="hero-asking-img" class="hero-image">
+          <div class="floating-sticker" id="floating-sticker">🥺</div>
+        </div>
+
+        <!-- Main Love Question -->
+        <h1 class="main-question" id="main-question">
+          &ldquo;I will love you to my last breath... <br>
+          <span class="highlight-text">Will you love me back?</span>&rdquo;
+        </h1>
+
+        <p class="subtitle-text" id="subtitle-text">
+          My whole heart is right here in your hands...
+        </p>
+
+        <!-- Dynamic Persuasion Message (changes on clicking No) -->
+        <div class="persuasion-banner" id="persuasion-banner" style="display: none;">
+          <span id="persuasion-emoji">🥺</span>
+          <span id="persuasion-text">Please... think about it again!</span>
+        </div>
+
+        <!-- Interactive Buttons Area -->
+        <div class="button-arena" id="button-arena">
+          <button type="button" class="btn btn-yes" id="btn-yes">
+            <span class="btn-sparkle">✨</span>
+            <span class="btn-text" id="yes-btn-text">YES! 💖</span>
+            <span class="btn-glow"></span>
+          </button>
+
+          <button type="button" class="btn btn-no" id="btn-no">
+            <span class="btn-text" id="no-btn-text">No 💔</span>
+          </button>
+        </div>
+
+        <p class="hint-caption" id="hint-caption">
+          Tip: Listen closely to what your heart whispers ✨
+        </p>
+      </section>
+
+      <!-- Acceptance / Celebration View -->
+      <section class="state-view celebration-view" id="celebration-view" style="display: none;" aria-live="polite">
+        <!-- Floating Celebration Ring -->
+        <div class="celebration-badge">
+          <span>💍</span> FOREVER & ALWAYS <span>✨</span>
+        </div>
+
+        <!-- Celebration Illustration -->
+        <div class="image-wrapper celebration-image-wrapper">
+          <div class="celebration-halo"></div>
+          <img src="assets/celebration.jpg" alt="Two teddy bears hugging joyfully in celebration" id="hero-celebration-img" class="hero-image celebration-img">
+          <div class="burst-hearts" id="burst-hearts">💖</div>
+        </div>
+
+        <!-- The Final Romantic Vow -->
+        <h1 class="celebration-title">
+          You said YES! 🥰🎉
+        </h1>
+
+        <div class="vow-card">
+          <p class="vow-quote">
+            &ldquo;You said yes... Now I will protect you with my life.&rdquo;
+          </p>
+          <div class="vow-divider">
+            <span>❤️</span>
+          </div>
+          <p class="vow-detail">
+            Through every storm, every sunrise, and every tomorrow — you are my home, my peace, and my greatest adventure.
+          </p>
+        </div>
+
+        <!-- Action Items -->
+        <div class="celebration-actions">
+          <button type="button" class="btn btn-seal" id="btn-seal">
+            <span>💌</span> Seal With A Kiss
+          </button>
+          <button type="button" class="btn btn-replay" id="btn-replay">
+            <span>🔄</span> Relive The Moment
+          </button>
+        </div>
+
+        <div class="promise-tag">
+          🔒 Locked forever in eternity &bull; Promise made with all my heart
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Sweet Notification Toast -->
+  <div class="love-toast" id="love-toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

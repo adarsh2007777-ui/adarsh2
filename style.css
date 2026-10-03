@@ -1,0 +1,612 @@
+/* ==========================================================================
+   LOVE PROPOSAL - LUXURY ROMANTIC DESIGN SYSTEM
+   ========================================================================== */
+
+:root {
+  --primary-rose: #ff2a6d;
+  --secondary-blush: #ff758f;
+  --accent-gold: #ffd166;
+  --deep-ruby: #720424;
+  --card-bg: rgba(255, 240, 245, 0.72);
+  --card-border: rgba(255, 255, 255, 0.65);
+  --card-shadow: 0 20px 60px rgba(97, 10, 48, 0.28), 0 0 40px rgba(255, 42, 109, 0.15);
+  --text-main: #2b0b1e;
+  --text-muted: #6b4055;
+  --glow-pink: rgba(255, 42, 109, 0.45);
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-script: 'Dancing Script', cursive;
+  --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --smooth-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base reset & layout */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  min-height: 100vh;
+  width: 100%;
+  font-family: var(--font-main);
+  color: var(--text-main);
+  background: radial-gradient(circle at 50% 10%, #ffe5ec 0%, #ffc2d1 30%, #ff9aa2 60%, #b33951 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background floating particles canvas */
+#ambient-canvas, #confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#confetti-canvas {
+  z-index: 99;
+}
+
+/* Top Navigation Bar */
+.top-nav {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  z-index: 20;
+}
+
+.audio-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 15px rgba(114, 4, 36, 0.12);
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--deep-ruby);
+  transition: all 0.3s var(--smooth-ease);
+  user-select: none;
+}
+
+.audio-toggle:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 25px rgba(255, 42, 109, 0.25);
+}
+
+.audio-toggle.playing {
+  background: linear-gradient(135deg, rgba(255, 42, 109, 0.15), rgba(255, 117, 143, 0.25));
+  border-color: var(--primary-rose);
+}
+
+.audio-toggle.playing .music-icon {
+  animation: pulseRotate 2s infinite ease-in-out;
+}
+
+@keyframes pulseRotate {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(15deg) scale(1.2); }
+}
+
+/* Center Proposal Container */
+.proposal-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px 40px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Premium Frosted Glass Card */
+.glass-card {
+  width: 100%;
+  max-width: 580px;
+  background: var(--card-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: 36px;
+  border: 2px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  padding: 44px 36px;
+  text-align: center;
+  position: relative;
+  overflow: visible;
+  transition: transform 0.4s var(--spring-bounce), box-shadow 0.4s ease;
+  animation: cardEntrance 0.9s var(--spring-bounce);
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Badge pill */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #fff0f3, #ffe3e8);
+  border: 1px solid rgba(255, 42, 109, 0.3);
+  padding: 7px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--deep-ruby);
+  box-shadow: 0 4px 12px rgba(255, 42, 109, 0.12);
+  margin-bottom: 22px;
+}
+
+.heart-pulse {
+  display: inline-block;
+  animation: heartThump 1.2s infinite ease-in-out;
+}
+
+@keyframes heartThump {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.3); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.2); }
+}
+
+/* Image Presentation with Glow Halo */
+.image-wrapper {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 24px;
+}
+
+.halo-glow, .celebration-halo {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 42, 109, 0.5) 0%, rgba(255, 182, 193, 0.2) 60%, transparent 80%);
+  filter: blur(14px);
+  z-index: 1;
+  animation: haloPulse 3s infinite alternate ease-in-out;
+}
+
+@keyframes haloPulse {
+  0% { transform: scale(0.96); opacity: 0.6; }
+  100% { transform: scale(1.08); opacity: 0.95; }
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  box-shadow: 0 12px 30px rgba(114, 4, 36, 0.2);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s var(--spring-bounce);
+}
+
+.hero-image:hover {
+  transform: scale(1.04) rotate(2deg);
+}
+
+.floating-sticker {
+  position: absolute;
+  bottom: 0;
+  right: 12px;
+  background: #ffffff;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  z-index: 3;
+  animation: stickerBounce 2.5s infinite ease-in-out;
+}
+
+@keyframes stickerBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Question Typography */
+.main-question {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.highlight-text {
+  font-family: var(--font-script);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--primary-rose);
+  display: inline-block;
+  text-shadow: 0 2px 10px rgba(255, 42, 109, 0.25);
+  margin-top: 4px;
+}
+
+.subtitle-text {
+  font-size: 1.02rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+/* Persuasion Notification Banner */
+.persuasion-banner {
+  background: linear-gradient(135deg, #fff0f3, #ffe0e6);
+  border: 1.5px solid #ff758f;
+  color: var(--deep-ruby);
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 24px;
+  box-shadow: 0 6px 20px rgba(255, 42, 109, 0.15);
+  animation: bannerPop 0.4s var(--spring-bounce);
+  max-width: 440px;
+}
+
+@keyframes bannerPop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Button Arena & Sizing Mechanics */
+.button-arena {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin: 12px auto 20px;
+  min-height: 90px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 999px;
+  font-family: var(--font-main);
+  font-weight: 700;
+  transition: all 0.35s var(--spring-bounce);
+  position: relative;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* YES Button Styling - Grows bigger */
+.btn-yes {
+  background: linear-gradient(135deg, #ff2a6d 0%, #ff4d6d 50%, #ff758f 100%);
+  color: #ffffff;
+  padding: 18px 44px;
+  font-size: 1.25rem;
+  box-shadow: 0 10px 30px rgba(255, 42, 109, 0.45), 0 0 20px rgba(255, 117, 143, 0.3);
+  z-index: 5;
+  transform-origin: center center;
+}
+
+.btn-yes:hover {
+  transform: scale(1.05);
+  box-shadow: 0 14px 40px rgba(255, 42, 109, 0.6), 0 0 30px rgba(255, 117, 143, 0.5);
+}
+
+.btn-yes:active {
+  transform: scale(0.96);
+}
+
+.btn-yes .btn-glow {
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd166, #ff2a6d, #ff758f);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.btn-yes:hover .btn-glow {
+  opacity: 0.8;
+}
+
+/* NO Button Styling - Shrinks smaller */
+.btn-no {
+  background: #ffffff;
+  color: #720424;
+  border: 2px solid rgba(114, 4, 36, 0.2);
+  padding: 16px 36px;
+  font-size: 1.15rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  z-index: 4;
+  transform-origin: center center;
+  transition: all 0.3s var(--smooth-ease);
+}
+
+.btn-no:hover {
+  background: #fff0f3;
+  border-color: #ff758f;
+  transform: scale(0.96);
+}
+
+.hint-caption {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   CELEBRATION VIEW (AFTER CLICKING YES)
+   ========================================================================== */
+
+.celebration-view {
+  animation: celebrationEntrance 0.8s var(--spring-bounce);
+}
+
+@keyframes celebrationEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.celebration-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ffd166, #ffb703);
+  color: #5c3800;
+  padding: 8px 22px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  box-shadow: 0 6px 18px rgba(255, 183, 3, 0.35);
+  margin-bottom: 22px;
+}
+
+.celebration-image-wrapper {
+  width: 250px;
+  height: 250px;
+  margin-bottom: 28px;
+}
+
+.celebration-halo {
+  background: radial-gradient(circle, rgba(255, 209, 102, 0.6) 0%, rgba(255, 42, 109, 0.4) 50%, transparent 80%);
+  animation: goldHaloPulse 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes goldHaloPulse {
+  0% { transform: scale(0.98); opacity: 0.7; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+.burst-hearts {
+  position: absolute;
+  top: -8px;
+  right: 10px;
+  font-size: 2.2rem;
+  animation: burstFloat 2s infinite ease-in-out;
+  z-index: 3;
+}
+
+@keyframes burstFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(12deg); }
+}
+
+.celebration-title {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--deep-ruby);
+  margin-bottom: 18px;
+  text-shadow: 0 2px 12px rgba(255, 42, 109, 0.2);
+}
+
+/* Vow Quotation Card */
+.vow-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 235, 240, 0.9));
+  border: 2px solid rgba(255, 42, 109, 0.35);
+  border-radius: 24px;
+  padding: 26px 28px;
+  box-shadow: 0 10px 30px rgba(114, 4, 36, 0.12);
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.vow-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--primary-rose);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.vow-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px 0;
+  position: relative;
+}
+
+.vow-divider::before, .vow-divider::after {
+  content: '';
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ff758f, transparent);
+  flex: 1;
+}
+
+.vow-divider span {
+  padding: 0 12px;
+  font-size: 1.1rem;
+}
+
+.vow-detail {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.celebration-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.btn-seal {
+  background: linear-gradient(135deg, #ff2a6d, #ff4d6d);
+  color: #ffffff;
+  padding: 15px 32px;
+  font-size: 1.1rem;
+  box-shadow: 0 8px 24px rgba(255, 42, 109, 0.4);
+}
+
+.btn-seal:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(255, 42, 109, 0.55);
+}
+
+.btn-replay {
+  background: #ffffff;
+  color: var(--deep-ruby);
+  border: 1.5px solid rgba(114, 4, 36, 0.2);
+  padding: 14px 26px;
+  font-size: 1rem;
+}
+
+.btn-replay:hover {
+  background: #fff0f3;
+  transform: translateY(-2px);
+}
+
+.promise-tag {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+  letter-spacing: 0.3px;
+}
+
+/* Toast Notification */
+.love-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(43, 11, 30, 0.92);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  opacity: 0;
+  transition: all 0.4s var(--spring-bounce);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.love-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .proposal-container {
+    padding: 70px 16px 30px;
+  }
+  
+  .glass-card {
+    padding: 34px 22px;
+    border-radius: 28px;
+  }
+  
+  .image-wrapper {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .celebration-image-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .main-question {
+    font-size: 1.55rem;
+  }
+  
+  .highlight-text {
+    font-size: 1.95rem;
+  }
+  
+  .vow-quote {
+    font-size: 1.3rem;
+  }
+  
+  .button-arena {
+    gap: 14px;
+  }
+  
+  .btn-yes {
+    padding: 16px 36px;
+    font-size: 1.15rem;
+  }
+  
+  .btn-no {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+}
